@@ -22,6 +22,7 @@ public class LoginServlet extends HttpServlet {
         // check for logout param 
         // if so invalidate the session and display a message telling the user they were logged out
         String logout = request.getParameter("logout");
+         String activeUser = (String)session.getAttribute("username");
         if (logout != null && logout.equals("")) {
             // invalidate the session
             session.invalidate();
@@ -29,6 +30,12 @@ public class LoginServlet extends HttpServlet {
             //display a message telling the user they were logged out
             request.setAttribute("message", "You have been successfully logged out");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return;
+        }
+        
+        // if the user has an active session redirect them to the home page
+        if(activeUser != null ){
+            response.sendRedirect("home");
             return;
         }
 
@@ -43,7 +50,7 @@ public class LoginServlet extends HttpServlet {
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+       
         
         //if one field is missing reload the page and retain the current values
         if((username == null || username.equals("")) ||(password == null ||password.equals("") )){
@@ -52,7 +59,10 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         return;
         }
+        
+        
             
+        
         // pass arguments to the account services page
         AccountService ac = new AccountService();
         User user = ac.login(username, password);
