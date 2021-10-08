@@ -13,5 +13,24 @@
     </head>
     <body>
         <h1>Login Page</h1>
+        <div>
+            <form action="login" method="post">
+                <table>
+                    <tr>
+                        <td><label for="username"> Username: </label></td>
+                        <td><input type="text" name="username" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password"> Password: </label></td>
+                        <td><input type="password" name="password" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Log in" /></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">${message}</td>
+                    </tr>
+                </table>
+        </div>
     </body>
 </html>
